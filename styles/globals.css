@@ -1,0 +1,29 @@
+:root {
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --background:  #140e1b;
+  --background-light: #0A070D;
+  --text: #e2e1dc;
+  --primary: #d3b04f;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font: 400 1rem/1.5 'Golos Text', sans-serif;
+  user-select: none;
+}
+

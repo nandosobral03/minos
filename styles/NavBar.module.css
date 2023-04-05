@@ -1,0 +1,28 @@
+.nav{
+    padding: 16px;
+    display: flex;
+    height: 100vh;
+    background-color: var(--background-light);
+    width: 200px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.navItem{
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.navItem:hover{
+    background-color: var(--background);
+}
+
+.navItem.active{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 4px solid var(--primary);
+}
