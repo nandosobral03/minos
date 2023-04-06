@@ -5,6 +5,11 @@
   --background-light: #0A070D;
   --text: #e2e1dc;
   --primary: #d3b04f;
+  --start : #d3794f;
+  --end : #3d7c38;
+  --visited: #4fb6d3;
+  --path : #ded2b3;
+  --current : #b64fd3;
 }
 
 * {

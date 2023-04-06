@@ -6,8 +6,17 @@ const algorithms: Algorithm[] = [
         description: "Depth First Search",
         code: "dfs",
         language: "typescript",
-        execute: (input: boolean[][], start: [number, number], end: [number, number]) => {
-            return require("@/logic/algorithms/dfs").default(input)
+        execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
+            return require("@/logic/algorithms/dfs").default(input, start, end)
+        }
+    },
+    {
+        name: "BFS",
+        description: "Breadth First Search",
+        code: "bfs",
+        language: "typescript",
+        execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
+            return require("@/logic/algorithms/bfs").default(input, start, end)
         }
     }
 

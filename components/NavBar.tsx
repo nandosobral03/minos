@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import styles from '../styles/NavBar.module.css'
+import styles from '../styles/NavBar.module.scss'
 
 const NavBar = () =>{
     const router = useRouter();
@@ -8,7 +8,7 @@ const NavBar = () =>{
     const routes = [
         {
             name: 'Visualizer',
-            path: '/',
+            path: '/visualizer',
         },
         {
             name: 'About',

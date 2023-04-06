@@ -13,7 +13,7 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
     const path = []
     let found    = false
     while (stack.length > 0) {
-        const node = stack.pop()!;
+        const node = stack.shift()!;
         const [x, y] = node;
         const key = `${x},${y}`;
 
