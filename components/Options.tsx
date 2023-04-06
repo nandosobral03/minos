@@ -24,12 +24,13 @@ const Options = memo(
   }) => {
     useEffect(() => {
       const algorithms = require("@/logic/algorithms").default;
-      const algo = algorithms.find((algo: Algorithm) => algo.name === "DFS");
+      const algo = algorithms.find((algo: Algorithm) => algo.name === "a-star");
       onAlgorithmChange(algo);
     }, []);
 
     const algorithms = require("@/logic/algorithms").default;
     const changeAlgorithm = (algorithm: string) => {
+      console.log(algorithms)
       const algo = algorithms.find(
         (algo: Algorithm) => algo.name === algorithm
       );
@@ -47,6 +48,7 @@ const Options = memo(
           <option value="DFS">Depth First Search</option>
           <option value="BFS">Breadth First Search</option>
           <option value="dijkstra">Dijkstra's Algorithm</option>
+          <option value="a-star">A* Algorithm</option>
         </select>
         <Brushes brush={brush} changeBrush={(e) => changeBrush(e)} />
         <TimeOptions runAlgorithm={runAlgorithm} reset={reset} nextStep={nextStep} previousStep={previousStep} />

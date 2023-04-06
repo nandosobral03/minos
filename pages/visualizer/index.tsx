@@ -73,6 +73,7 @@ const Visualizer = () => {
     const newMatrix = matrix.map((row) => [
       ...row.map((cell) => (cell === 5 ? false : true)),
     ]);
+    console.log(algorithm)
     const { found, path, steps } = algorithm!.execute(
       newMatrix,
       start,

@@ -18,6 +18,15 @@ const algorithms: Algorithm[] = [
         execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
             return require("@/logic/algorithms/bfs").default(input, start, end)
         }
+    },
+    {
+        name: "a-star",
+        description: "A* Search",
+        code: "a-star",
+        language: "typescript",
+        execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
+            return require("@/logic/algorithms/a-star").default(input, start, end)
+        }
     }
 
 ]
