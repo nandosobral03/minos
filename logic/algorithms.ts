@@ -27,6 +27,15 @@ const algorithms: Algorithm[] = [
         execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
             return require("@/logic/algorithms/a-star").default(input, start, end)
         }
+    },
+    {
+        name: "dijkstra",
+        description: "Dijkstra's Algorithm",
+        code: "dijkstra",
+        language: "typescript",
+        execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
+            return require("@/logic/algorithms/dijkstra").default(input, start, end)
+        }
     }
 
 ]

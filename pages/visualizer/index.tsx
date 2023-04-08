@@ -79,7 +79,7 @@ const Visualizer = () => {
       start,
       endings
     );
-
+      console.log (found, path, steps)
     setSteps(steps);
     setPath(path);
   };

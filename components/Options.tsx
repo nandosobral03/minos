@@ -24,13 +24,12 @@ const Options = memo(
   }) => {
     useEffect(() => {
       const algorithms = require("@/logic/algorithms").default;
-      const algo = algorithms.find((algo: Algorithm) => algo.name === "a-star");
+      const algo = algorithms.find((algo: Algorithm) => algo.name === "dijkstra");
       onAlgorithmChange(algo);
     }, []);
 
     const algorithms = require("@/logic/algorithms").default;
     const changeAlgorithm = (algorithm: string) => {
-      console.log(algorithms)
       const algo = algorithms.find(
         (algo: Algorithm) => algo.name === algorithm
       );
