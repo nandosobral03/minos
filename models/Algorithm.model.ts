@@ -3,15 +3,13 @@ export interface Algorithm {
     description: string;
     code: string;
     language: string;
-    execute: (vals:boolean[][], start: [number, number], end: [number, number][]) =>{steps: Steps[],
+    execute: (vals:boolean[][], start: [number, number], end: [number, number][]) =>{
     found: boolean,
-    path: [number, number][]}
+    path: [number, number][],
+    visited: [number, number][]
+}
 }
 
 export interface Steps {
-    step: number;
     node: [number, number];
-    visited: Set<string>;
-
-    
 }

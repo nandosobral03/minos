@@ -10,7 +10,7 @@ const Visualizer = () => {
   const [brush, setBrush] = useState(1);
   const [height, setHeight] = useState(14);
   const [width, setWidth] = useState(14);
-  const [steps, setSteps] = useState<Steps[]>([]);
+  const [visited, setVisited] = useState<[number,number][]>([]);
   const [currentStep, _setCurrentStep] = useState(0);
   const [path, setPath] = useState<[number, number][]>([]);
   const [matrix, setMatrix] = useState<number[][]>(
@@ -42,7 +42,7 @@ const Visualizer = () => {
     newMatrix[0][0] = 3;
     newMatrix[height - 1][width - 1] = 4;
     setMatrix(newMatrix);
-    setSteps([]);
+    setVisited([]);
   }, [height, width]);
 
 
@@ -74,24 +74,23 @@ const Visualizer = () => {
       ...row.map((cell) => (cell === 5 ? false : true)),
     ]);
     console.log(algorithm)
-    const { found, path, steps } = algorithm!.execute(
+    const { found, path, visited } = algorithm!.execute(
       newMatrix,
       start,
-      endings
+      endings,
     );
-      console.log (found, path, steps)
-    setSteps(steps);
+    setVisited(visited);
     setPath(path);
   };
 
   useEffect(() => {
-    setCurrentStep(steps.length == 0 ? 0 : steps.length - 1);
-  }, [steps]);
+    setCurrentStep(visited.length == 0 ? 0 : visited.length - 1);
+  }, [visited]);
 
   
   const setCurrentStep = (step: number) => {
     if (step == 0) _setCurrentStep(0);
-    if (step < 0 || step >= steps.length) return;
+    if (step < 0 || step >= visited.length) return;
     _setCurrentStep(step);
   };
 
@@ -103,21 +102,19 @@ const Visualizer = () => {
       setMatrix(newMatrix);
     };
     
-    const nextStep = steps[currentStep];
-    if (!nextStep) return;
+    const currentVisited = visited[currentStep];
+    if (!currentVisited) return;
     clearVisited();
-    let lastVisitedSteps = nextStep.visited;
-    let current = nextStep.node;
-    for (let elem of Array.from(lastVisitedSteps)) {
-      const [x, y] = elem.split(",").map((e) => parseInt(e));
+    for (let elem of Array.from(visited.slice(0, currentStep ))) {
+      const [x, y] = elem;
       if (matrix[x][y] === 4 || matrix[x][y] === 3) continue;
       changeMatrixValue(x, y, 1, true);
     }
 
-    if (currentStep === steps.length - 1) {
+    if (currentStep === visited.length - 1) {
       showFinalPath();
     } else {
-      const [x, y] = current;
+      const [x, y] = currentVisited;
       changeMatrixValue(x, y, 6, true);
     }
   }, [currentStep]);

@@ -1,33 +1,30 @@
-import { Steps } from "@/models/Algorithm.model";
 
-const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): 
-{
-    steps: Steps[],
+const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): {
     found: boolean,
-    path: [number, number][]
+    path: [number, number][],
+    visited: [number, number][]
 } => {
     const possibleEnds = end.map(([x, y]) => `${x},${y}`);
-    const steps = [];
     const visited = new Set<string>();
+    const visitedArray: [number, number][] = [];
     const stack = [start];
     const path = []
-    let found    = false
+    let found = false
     while (stack.length > 0) {
         const node = stack.pop()!;
         const [x, y] = node;
         const key = `${x},${y}`;
 
         if (possibleEnds.includes(key)) {
-            steps.push({ node, visited: new Set(visited), step: steps.length });
             path.push(node)
             found = true
             break;
         }
 
         if (vals[x][y] && !visited.has(key)) {
-            steps.push({ node, visited: new Set(visited), step: steps.length });
             path.push(node)
             visited.add(key);
+            visitedArray.push(node)
             if (x > 0) {
                 stack.push([x - 1, y]);
             }
@@ -43,7 +40,7 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
         }
     }
 
-    return {steps, path, found}
+    return {  path, found, visited: visitedArray };
 }
 
 

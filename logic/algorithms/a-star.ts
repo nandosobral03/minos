@@ -1,30 +1,26 @@
-import { Steps } from "@/models/Algorithm.model";
-
 const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): 
 {
-    steps: Steps[],
     found: boolean,
-    path: [number, number][]
+    path: [number, number][],
+    visited: [number, number][]
 } => {
     const openSet = new Set([start.join(",")]);
     const cameFrom = new Map<string, string>();
     const gScore = new Map<string, number>([[`${start[0]},${start[1]}`, heuristic(start, end)]]);
     const fScore = new Map([[`${start[0]},${start[1]}`, heuristic(start, end)]]);
     const visited = new Set<string>();
-    const steps = [];
+    const visitedArray: [number, number][] = [];
   while (openSet.size > 0) {
     const current = Array.from(openSet).reduce(
       (a, b) => (fScore.get(a)! < fScore.get(b)! ? a : b)
     );
     let ending = end.find(([x, y]) => current === `${x},${y}`);
     if (ending) {
-      console.log(cameFrom)
-        console.log("found")
-        
+
       return {
         path: reconstructPath(cameFrom, ending),
-        steps: steps,
-        found: true
+        found: true,
+        visited: visitedArray
       }
     }
     if(!vals[ +current.split(",")[0] ] || !vals[ +current.split(",")[0] ][ +current.split(",")[1] ]){
@@ -36,22 +32,13 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
         continue
     }
     visited.add(current);
+    visitedArray.push(current.split(",").map(Number) as [number, number])
+
     openSet.delete(current);
-    steps.push({ node: current.split(",").map(Number) as [number, number] 
-      
-      , visited: new Set(visited), step: steps.length });
 
     for (const neighbor of neighbors(current.split(",").map(Number) as [number, number], vals)) {
       const tentativeGScore = gScore.get(current)! + 1;
       const neighborKey = `${neighbor[0]},${neighbor[1]}`
-      if(neighborKey === "0,0") {
-        console.log("neighbor", neighbor)
-        console.log("neighborKey", neighborKey)
-        console.log("current", current)
-        console.log("tentativeGScore", tentativeGScore)
-        console.log("gScore.get(neighborKey)", gScore.get(neighborKey))
-        
-      }
       if (tentativeGScore < (gScore.get(neighborKey) || Infinity)) {
           cameFrom.set(neighborKey, current);
           gScore.set(neighborKey, tentativeGScore);
@@ -63,22 +50,17 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
       }
     }
   }
-console.log("not found")
-  return {steps: [], path: [], found: false}
+  return { path: [], found: false, visited: visitedArray};
 }
 
 
 const reconstructPath = (cameFrom: Map<string, string>, current: [number, number]) => {
-    console.log("reconstructing path", cameFrom, current)
     let curr = current.join(",");
     const totalPath = [current];
     while (cameFrom.has(curr)) {
-        console.log("curr", curr)
-        console.log("cameFrom.get(curr)", cameFrom.get(curr))
         curr = cameFrom.get(curr)!;
         totalPath.push(curr.split(",").map(Number) as [number, number]);
     }
-    console.log(totalPath)
     return totalPath.reverse();
 }
 

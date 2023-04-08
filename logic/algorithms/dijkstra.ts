@@ -1,10 +1,8 @@
-import { Steps } from "@/models/Algorithm.model";
 
 type Node = {
     x: number;
     y: number;
     distance: number;
-    visited: boolean;
     previous: Node | null;
   };
   
@@ -13,13 +11,13 @@ type Node = {
 
 const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): 
 {
-    steps: Steps[],
     found: boolean,
     path: [number, number][]
+    visited: [number, number][]
 } => {
     const possibleEnds = end.map(([x, y]) => `${x},${y}`);
-    const steps : Steps[] = [];
     const visited = new Set<string>();
+    const visitedArray: [number, number][] = [];
     const nodes: Node[][] = vals.map((row, x) =>
       row.map((value, y) => ({
         x,
@@ -38,17 +36,18 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
       const currentNode = getClosestNode(unvisited);
       console.log(currentNode)
       if(visited.has(`${currentNode.x},${currentNode.y}`)) continue;
-      steps.push({ node: [currentNode.x, currentNode.y], visited: new Set(visited), step: steps.length });
+      
       visited.add(`${currentNode.x},${currentNode.y}`)
-      currentNode.visited = true;
+      visitedArray.push([currentNode.x, currentNode.y])
+
       unvisited.splice(unvisited.indexOf(currentNode), 1);
 
 
       if (possibleEnds.includes(`${currentNode.x},${currentNode.y}`)) {
         return {
-            steps: steps,
             found: true,
-            path: getPath(currentNode)
+            path: getPath(currentNode),
+            visited: visitedArray
         }
       }
   
@@ -65,9 +64,9 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
   
 
     return {
-        steps: [],
         found: false,
-        path: []
+        path: [],
+        visited: []
     }
 }
 

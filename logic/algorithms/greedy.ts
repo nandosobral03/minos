@@ -1,16 +1,15 @@
-import { Steps } from "@/models/Algorithm.model";
 import Heap from "heap-js";
 
 
 const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): 
 {
-    steps: Steps[],
     found: boolean,
     path: [number, number][]
+    visited: [number, number][]
 } => {
     const possibleEnds = end.map(([x, y]) => `${x},${y}`);
-    const steps = [];
     const visited = new Set<string>();
+    const visitedArray: [number, number][] = [];
     const comparator = (a: [number, number], b: [number, number]) => {
             let closestEndToA = Infinity
             let closestEndToB = Infinity
@@ -40,15 +39,13 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
         const [x, y] = node;
         const key = `${x},${y}`;
         if (possibleEnds.includes(key)) {
-            steps.push({ node, visited: new Set(visited), step: steps.length });
             found = true;
             break;
         }
 
         if (vals[x][y]) {
-
-            steps.push({ node, visited: new Set(visited), step: steps.length });
             visited.add(key);
+            visitedArray.push(node)
             if (x > 0 && !visited.has(`${x - 1},${y}`)) {
                 prev.set(`${x - 1},${y}`, [x, y])
                 priorityQueue.push([x - 1, y]);
@@ -70,22 +67,22 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
 
     if(found) {
         const path = []
-        let current = steps[steps.length - 1].node
+        let current = visitedArray[visitedArray.length - 1]
         while (current[0] !== start[0] || current[1] !== start[1]) {
             path.push(current)
             current = prev.get(`${current[0]},${current[1]}`)!
         }
         return {
-            steps,
             found: true,
-            path
+            path,
+            visited: visitedArray
         }
     }
     else{
         return {
-            steps,
             found: false,
-            path: []
+            path: [],
+            visited: visitedArray
         }
     }
  
