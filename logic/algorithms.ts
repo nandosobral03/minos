@@ -36,6 +36,15 @@ const algorithms: Algorithm[] = [
         execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
             return require("@/logic/algorithms/dijkstra").default(input, start, end)
         }
+    },
+    {
+        name: "greedy",
+        description: "Greedy Best First Search",
+        code: "greedy",
+        language: "typescript",
+        execute: (input: boolean[][], start: [number, number], end: [number, number][]) => {
+            return require("@/logic/algorithms/greedy").default(input, start, end)
+        }
     }
 
 ]

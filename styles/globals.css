@@ -1,15 +1,31 @@
 :root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --background:  #140e1b;
-  --background-light: #0A070D;
-  --text: #e2e1dc;
+
+  --background:  #1db78e;
+  --background-light: #0f0f0f;
+  
+  --text: #f2f2f2;
+  
   --primary: #d3b04f;
-  --start : #d3794f;
-  --end : #3d7c38;
-  --visited: #4fb6d3;
-  --path : #ded2b3;
-  --current : #b64fd3;
+  --primary-dark: #cd9b46;
+  --primary-light: #d8c558;
+  --primary-low-opacity: hsla(0, 0%, 39%, 0.05);
+
+  --secondary: #1db78e;
+  --secondary-dark: #00a97c;
+  --secondary-light: #4ec5a1;
+
+  --success: #72d34f;
+  --danger: #d36e4f;
+
+
+  --cell: #212121;
+
+  --start : #1db78e;
+  --end :  #d34f4f;
+  --visited: #e0db71;
+  --path : #4f72d3;
+  --current : #4fd3b0;
+  --wall : #cd9b46;
 }
 
 * {

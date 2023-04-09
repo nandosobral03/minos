@@ -48,6 +48,7 @@ const Options = memo(
           <option value="BFS">Breadth First Search</option>
           <option value="dijkstra">Dijkstra's Algorithm</option>
           <option value="a-star">A* Algorithm</option>
+          <option value="greedy">Greedy Best First Search</option>
         </select>
         <Brushes brush={brush} changeBrush={(e) => changeBrush(e)} />
         <TimeOptions runAlgorithm={runAlgorithm} reset={reset} nextStep={nextStep} previousStep={previousStep} />

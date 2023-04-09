@@ -3,12 +3,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--background);
+    background-color: var(--cell);
     color: var(--text);   
     line-height: 1.5rem;
     flex-grow: 1;
     outline: none;
-    border:  2px solid var(--primary);
     border-radius: 4px;
     padding: 4px;
     font-size: 1rem;
@@ -19,7 +18,7 @@
     height: 100%;
 
     option{
-        background-color: var(--background);
+        background-color: var(--cell);
         color: var(--text);
       
     }
@@ -38,26 +37,24 @@
     height: 100%;
     border: 2px solid var(--primary);
     border-radius: 15%;
-    background-color:  var(--background-light);
-    color: var(--primary) !important;
+    background-color:  var(--primary);
     display: grid;
     place-items: center;
     cursor: pointer;
     &:hover{
-        background-color: var(--primary);
-        color: var(--background) !important;  
-        border:  2px solid var(--background);
+        background-color: var(--primary-light);
     }
 }
 
 .matrix{
+    width: 100%;
+    flex-grow: 1;
     display:grid;
-    gap: 0px;
+    gap: auto;
     .block{
+        border: 1px solid var(--primary-low-opacity);
         aspect-ratio: 1/1;
-        border: 1px solid var(--primary);
-        background-color: var(--background-light);
-        color: var(--primary);
+        background-color: var(--cell);
         display: grid;
         place-items: center;
         height: 25px;
@@ -65,7 +62,7 @@
         font-weight: 600;
         cursor: pointer;
         &:hover{
-            background-color: var(--primary);
+            background-color: var(--primary) !important;
             color: var(--background);
             border:  0px solid var(--background);
         }
@@ -96,11 +93,11 @@
 }
 
 .wall{
-    background-color: var(--primary) !important;
+    background-color: var(--wall) !important;
 }
 
 .empty{
-    background-color: var(--background) !important;
+    background-color: var(--cell) !important;
 }
 
 .start{

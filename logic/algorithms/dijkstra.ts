@@ -4,6 +4,7 @@ type Node = {
     y: number;
     distance: number;
     previous: Node | null;
+    valid: boolean;
   };
   
   type Matrix = number[][];
@@ -25,11 +26,12 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
         distance: Infinity,
         visited: false,
         previous: null,
+        valid : value
       }))
     );
   
     const startNode = nodes[start[0]][start[1]]
-    const unvisited: Node[] = nodes.flat();
+    const unvisited: Node[] = nodes.flat().filter(node => node.valid);
     startNode.distance = 0;
       
     while (unvisited.length > 0) {
@@ -37,11 +39,12 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
       console.log(currentNode)
       if(visited.has(`${currentNode.x},${currentNode.y}`)) continue;
       
+      
+      unvisited.splice(unvisited.indexOf(currentNode), 1);
+      
+      if(currentNode.distance === Infinity) break;
       visited.add(`${currentNode.x},${currentNode.y}`)
       visitedArray.push([currentNode.x, currentNode.y])
-
-      unvisited.splice(unvisited.indexOf(currentNode), 1);
-
 
       if (possibleEnds.includes(`${currentNode.x},${currentNode.y}`)) {
         return {
@@ -66,7 +69,7 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
     return {
         found: false,
         path: [],
-        visited: []
+        visited: visitedArray
     }
 }
 

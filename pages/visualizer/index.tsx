@@ -19,16 +19,16 @@ const Visualizer = () => {
 
   useEffect(() => {
     const resize = () => {
-      const realWidth = window.innerWidth - 250;
-      const realHeight = window.innerHeight * 0.95 - 48;
-      const cellSize = 25;
-      console.log(realWidth, realHeight);
-      if (realWidth > 350) {
-        setWidth(Math.ceil(realWidth / cellSize));
-      }
-      if (realHeight > 200) {
-        setHeight(Math.ceil(realHeight / cellSize));
-      }
+    const realWidth = window.innerWidth - 288;
+    const realHeight = window.innerHeight * 0.95 - 120;
+    const cellSize = 28;
+    console.log(realWidth, realHeight);
+    if (realWidth > 350) {
+      setWidth(Math.ceil(realWidth / cellSize));
+    }
+    if (realHeight > 200) {
+      setHeight(Math.ceil(realHeight / cellSize));
+    }
     };
 
     window.addEventListener("resize", resize);
@@ -105,7 +105,8 @@ const Visualizer = () => {
     const currentVisited = visited[currentStep];
     if (!currentVisited) return;
     clearVisited();
-    for (let elem of Array.from(visited.slice(0, currentStep ))) {
+
+    for (let elem of Array.from(visited.slice(0, path.length > 0 ? currentStep  : currentStep + 1))) {
       const [x, y] = elem;
       if (matrix[x][y] === 4 || matrix[x][y] === 3) continue;
       changeMatrixValue(x, y, 1, true);
