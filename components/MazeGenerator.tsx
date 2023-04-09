@@ -10,7 +10,7 @@ const MazeGenerator = ({
   const [mazePreset, setMazePreset] = useState<string>(presets[0].name);
 
   const generateMaze = () => {
-    const preset = presets.find((preset) => preset.name === mazePreset);
+    const preset = presets.find((preset) => preset.id === mazePreset);
     if (preset) {
       onGenerateMaze(preset);
     }

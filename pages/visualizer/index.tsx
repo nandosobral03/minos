@@ -144,10 +144,12 @@ const Visualizer = () => {
   };
 
   const setWalls = (walls: boolean[][]) => {
-    const newMatrix = matrix.map((row, i) => row.map((cell, j) => ([i][j] > 3 ? cell : walls[i][j] ? 5 : 0)));
-    newMatrix[0][0] = 3;
-    newMatrix[height - 1][width - 1] = 4;
-    setMatrix(newMatrix);
+    setMatrix((prev) => {
+      const newMatrix = walls.map((row, i) => row.map((cell, j) => (cell ? 5 : prev[i][j] > 2 &&  prev[i][j] != 5 ? prev[i][j] : 0)));
+      newMatrix[0][0] = 3;
+      newMatrix[height - 1][width - 1] = 4;
+      return newMatrix;
+    })
   }
 
 
