@@ -1,4 +1,4 @@
-import styles from "../styles/Visualizer.module.scss";
+import styles from "../styles/Options.module.scss";
 
 const Brushes = (
     { brush, changeBrush }:

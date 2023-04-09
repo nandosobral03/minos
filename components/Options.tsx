@@ -1,12 +1,16 @@
-import styles from "@/styles/Visualizer.module.scss";
+import styles from "@/styles/Options.module.scss";
 import { memo, useEffect } from "react";
 import Brushes from "./Brushes";
 import TimeOptions from "./TimeOptions";
 import { Algorithm } from "@/models/Algorithm.model";
+import { MazePreset } from "@/models/MazePreset.model";
+import AlgorithmSelector from "./AlgorithmSelector";
+import MazeGenerator from "./MazeGenerator";
 
 const Options = memo(
   ({
     onAlgorithmChange,
+    onGenerateMaze,
     changeBrush,
     brush,
     runAlgorithm,
@@ -15,6 +19,7 @@ const Options = memo(
     previousStep,
   }: {
     onAlgorithmChange: (algorithm: Algorithm | null) => void;
+    onGenerateMaze: (preset: MazePreset) => void;
     brush: number;
     changeBrush: (brush: number) => void;
     runAlgorithm: () => void;
@@ -22,34 +27,11 @@ const Options = memo(
     nextStep: () => void;
     previousStep: () => void;
   }) => {
-    useEffect(() => {
-      const algorithms = require("@/logic/algorithms").default;
-      const algo = algorithms.find((algo: Algorithm) => algo.name === "dijkstra");
-      onAlgorithmChange(algo);
-    }, []);
-
-    const algorithms = require("@/logic/algorithms").default;
-    const changeAlgorithm = (algorithm: string) => {
-      const algo = algorithms.find(
-        (algo: Algorithm) => algo.name === algorithm
-      );
-      onAlgorithmChange(algo);
-    };
-
+   
     return (
       <div className={styles.options}>
-        <select
-          onChange={(e) => {
-            changeAlgorithm(e.target.value);
-          }}
-          className={styles.algorithmSelector}
-        >
-          <option value="DFS">Depth First Search</option>
-          <option value="BFS">Breadth First Search</option>
-          <option value="dijkstra">Dijkstra's Algorithm</option>
-          <option value="a-star">A* Algorithm</option>
-          <option value="greedy">Greedy Best First Search</option>
-        </select>
+       <AlgorithmSelector onAlgorithmChange={onAlgorithmChange} />
+        <MazeGenerator onGenerateMaze={onGenerateMaze} />
         <Brushes brush={brush} changeBrush={(e) => changeBrush(e)} />
         <TimeOptions runAlgorithm={runAlgorithm} reset={reset} nextStep={nextStep} previousStep={previousStep} />
       </div>

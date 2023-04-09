@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import VisualizerComponent from "@/components/VisualizerContainer";
 import { useCallback, useEffect, useState } from "react";
 import { Algorithm, Steps } from "@/models/Algorithm.model";
+import { MazePreset } from "@/models/MazePreset.model";
 
 const Visualizer = () => {
   const [algorithm, setAlgorithm] = useState<Algorithm | null>(null);
@@ -59,9 +60,11 @@ const Visualizer = () => {
         return prev;
       });
     } else {
-      const newMatrix = matrix.map((row) => [...row]);
-      newMatrix[x][y] = value;
-      setMatrix(newMatrix);
+      if(matrix[x][y] != value) {
+        const newMatrix = matrix.map((row) => row.map((cell) => (cell > 2 ? cell : 0)));
+        newMatrix[x][y] = value;
+        setMatrix(newMatrix);
+      }
     }
   };
 
@@ -140,11 +143,25 @@ const Visualizer = () => {
     return endingCells;
   };
 
+  const setWalls = (walls: boolean[][]) => {
+    const newMatrix = matrix.map((row, i) => row.map((cell, j) => ([i][j] > 3 ? cell : walls[i][j] ? 5 : 0)));
+    newMatrix[0][0] = 3;
+    newMatrix[height - 1][width - 1] = 4;
+    setMatrix(newMatrix);
+  }
+
+
+  const generateMaze = (preset: MazePreset) => {
+    const newMaze = preset.generate(height, width);
+    setWalls(newMaze);
+  }
+
   return (
     <>
       <Layout>
         <Options
           onAlgorithmChange={setAlgorithm}
+          onGenerateMaze={(preset) => generateMaze(preset)}
           changeBrush={setBrush}
           brush={brush}
           runAlgorithm={runAlgorithm}

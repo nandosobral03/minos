@@ -1,50 +1,3 @@
-.algorithmSelector{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--cell);
-    color: var(--text);   
-    line-height: 1.5rem;
-    flex-grow: 1;
-    outline: none;
-    border-radius: 4px;
-    padding: 4px;
-    font-size: 1rem;
-    min-width: 200px;
-    &:active{
-        outline:  none;
-    }
-    height: 100%;
-
-    option{
-        background-color: var(--cell);
-        color: var(--text);
-      
-    }
-}
-
-.options{
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    height: clamp(2rem, 5vw, 3rem);
-}
-
-.button{
-    aspect-ratio: 1/1;
-    height: 100%;
-    border: 2px solid var(--primary);
-    border-radius: 15%;
-    background-color:  var(--primary);
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    &:hover{
-        background-color: var(--primary-light);
-    }
-}
 
 .matrix{
     width: 100%;
@@ -116,6 +69,3 @@
     background-color: var(--path) !important;
 }
 
-.current{
-    background-color: var(--current) !important;
-}
