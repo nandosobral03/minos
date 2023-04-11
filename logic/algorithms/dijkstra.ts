@@ -36,7 +36,6 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
       
     while (unvisited.length > 0) {
       const currentNode = getClosestNode(unvisited);
-      console.log(currentNode)
       if(visited.has(`${currentNode.x},${currentNode.y}`)) continue;
       
       
@@ -104,7 +103,6 @@ const execution = (vals: boolean[][], start: [number, number], end: [number, num
     let currentNode: Node | null = endNode;
   
     while (currentNode !== null) {
-        console.log(currentNode)
       path.unshift([currentNode.x, currentNode.y])
       currentNode = currentNode.previous;
     }

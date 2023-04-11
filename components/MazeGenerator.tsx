@@ -1,5 +1,6 @@
 import { MazePreset } from "@/models/MazePreset.model";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import styles from "@/styles/Options.module.scss";
 
 const MazeGenerator = ({
   onGenerateMaze,
@@ -16,9 +17,14 @@ const MazeGenerator = ({
     }
   };
 
+
+  useEffect(() => {
+    setMazePreset(presets[0].id);
+  }, []);
+
   return (
     <>
-      <select onChange={(e) => setMazePreset(e.target.value)}>
+      <select onChange={(e) => setMazePreset(e.target.value)} className={styles.select}>
         {presets.map((preset: MazePreset) => {
           return (
             <option value={preset.id} key={preset.id}>
@@ -27,7 +33,9 @@ const MazeGenerator = ({
           );
         })}
       </select>
-      <button onClick={() => generateMaze()}>Generate Maze</button>
+      <button onClick={() => generateMaze()} className={`${styles.button}`}> 
+        <span className="material-symbols-outlined">dashboard</span>
+       </button>
     </>
   );
 };

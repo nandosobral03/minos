@@ -1,3 +1,4 @@
+import { cells } from "@/logic/cells";
 import styles from "../styles/Options.module.scss";
 
 const Brushes = (
@@ -10,30 +11,27 @@ const Brushes = (
     const brushes = [
         {
             name: "Empty",
-            value: 0,
+            value: cells.empty.id,
+            class: cells.empty.class,
         },
         {
             name: "Start",
-            value: 3,
+            value: cells.start.id,
+            class: cells.start.class,
         },
         {
             name: "End",
-            value: 4,
+            value: cells.end.id,
+            class: cells.end.class,
         },
         {
             name: "Wall",
-            value: 5,
+            value: cells.wall.id,
+            class: cells.wall.class,
         }
     ]
 
-    const clases = [
-        styles.empty,
-        styles.visited,
-        styles.path,
-        styles.start,
-        styles.end,
-        styles.wall,
-      ];
+   
     return (
         <div className={styles.brushes}>
             {
@@ -41,7 +39,7 @@ const Brushes = (
                     return (
                         <div
                             key={b.value}
-                            className={`${styles.brush} ${brush === b.value ? styles.active : ""} ${clases[b.value]}`}
+                            className={`${styles.brush} ${brush === b.value ? styles.active : ""} ${b.class}`}
                             onClick={() => changeBrush(b.value)}
                            
                             >       

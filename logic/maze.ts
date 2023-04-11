@@ -1,9 +1,9 @@
-const mazePresets = [
+ const mazePresets = [
     {
         id: "random",
         name: "Random",
         generate: (height: number, width: number): boolean[][] => {
-            const initial = Array(width).fill(Array(height).fill(0));
+            const initial = Array(height).fill(Array(width).fill(0));
             const maze = initial.map((row, x) => row.map(() => Math.random() > 0.5));
             return maze;
         }

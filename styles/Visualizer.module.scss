@@ -14,6 +14,7 @@
         width: 25px;
         font-weight: 600;
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
         &:hover{
             background-color: var(--primary) !important;
             color: var(--background);
@@ -43,29 +44,5 @@
     &.active{
         border: 2px solid var(--primary) !important;
     }
-}
-
-.wall{
-    background-color: var(--wall) !important;
-}
-
-.empty{
-    background-color: var(--cell) !important;
-}
-
-.start{
-    background-color: var(--start) !important;
-}
-
-.end{
-    background-color: var(--end) !important;
-}
-
-.visited{
-    background-color: var(--visited) !important;
-}
-
-.path{
-    background-color: var(--path) !important;
 }
 

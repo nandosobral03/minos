@@ -4,6 +4,7 @@ import VisualizerComponent from "@/components/VisualizerContainer";
 import { useCallback, useEffect, useState } from "react";
 import { Algorithm, Steps } from "@/models/Algorithm.model";
 import { MazePreset } from "@/models/MazePreset.model";
+import { cells } from "@/logic/cells";
 
 const Visualizer = () => {
   const [algorithm, setAlgorithm] = useState<Algorithm | null>(null);
@@ -15,7 +16,7 @@ const Visualizer = () => {
   const [currentStep, _setCurrentStep] = useState(0);
   const [path, setPath] = useState<[number, number][]>([]);
   const [matrix, setMatrix] = useState<number[][]>(
-    Array.from({ length: height }, () => Array.from({ length: width }, () => 0))
+    Array.from({ length: height }, () => Array.from({ length: width }, () => cells.empty.id)),
   );
 
   useEffect(() => {
@@ -40,8 +41,8 @@ const Visualizer = () => {
 
   const resetMatrix = useCallback(() => {
     const newMatrix = Array.from({ length: height }, () => Array.from({ length: width }, () => 0));
-    newMatrix[0][0] = 3;
-    newMatrix[height - 1][width - 1] = 4;
+    newMatrix[0][0] = cells.start.id;
+    newMatrix[height - 1][width - 1] = cells.end.id;
     setMatrix(newMatrix);
     setVisited([]);
   }, [height, width]);
@@ -61,7 +62,7 @@ const Visualizer = () => {
       });
     } else {
       if(matrix[x][y] != value) {
-        const newMatrix = matrix.map((row) => row.map((cell) => (cell > 2 ? cell : 0)));
+        const newMatrix = matrix.map((row) => row.map((cell) => (cell)));
         newMatrix[x][y] = value;
         setMatrix(newMatrix);
       }
@@ -69,39 +70,57 @@ const Visualizer = () => {
   };
 
   const runAlgorithm = () => {
-    const startRow = matrix.findIndex((row) => row.includes(3));
-    const startCol = matrix[startRow].findIndex((cell) => cell === 3);
+    const startRow = matrix.findIndex((row) => row.includes(cells.start.id));
+    const startCol = matrix[startRow].findIndex((cell) => cell === cells.start.id);
     const start: [number, number] = [startRow, startCol];
     const endings = findAllEndingCells();
     const newMatrix = matrix.map((row) => [
-      ...row.map((cell) => (cell === 5 ? false : true)),
+      ...row.map((cell) => (cell !== cells.wall.id)),
     ]);
-    console.log(algorithm)
-    const { found, path, visited } = algorithm!.execute(
+    let { found, path, visited } = algorithm!.execute(
       newMatrix,
       start,
       endings,
     );
-    setVisited(visited);
+    visited = visited.filter((elem, index) => elem[0] != startRow || elem[1] != startCol);
+    setVisited(v => {
+      animateAlgorithm(visited).then(() => {
+        console.log("done");
+      });
+      return visited;
+    });
     setPath(path);
+   
+  };
+
+
+  const animateAlgorithm = async (visited: [number, number][]) => {
+    for(let i = 0; i < visited.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 35));
+      _setCurrentStep(i);
+    }
   };
 
   useEffect(() => {
-    setCurrentStep(visited.length == 0 ? 0 : visited.length - 1);
+    setCurrentStep(0);
+
+
+
   }, [visited]);
 
   
   const setCurrentStep = (step: number) => {
     if (step == 0) _setCurrentStep(0);
     if (step < 0 || step >= visited.length) return;
+    console.log(step);
     _setCurrentStep(step);
   };
 
 
   useEffect(() => {
     const clearVisited = () => {
-      const valuesToKeep = [3, 4, 5];
-      const newMatrix = matrix.map((row) => row.map((cell) => (valuesToKeep.includes(cell) ? cell : 0)));
+      const valuesToKeep = [cells.start.id, cells.end.id, cells.wall.id];
+      const newMatrix = matrix.map((row) => row.map((cell) => (valuesToKeep.includes(cell) ? cell : cells.empty.id)));
       setMatrix(newMatrix);
     };
     
@@ -109,25 +128,28 @@ const Visualizer = () => {
     if (!currentVisited) return;
     clearVisited();
 
+
     for (let elem of Array.from(visited.slice(0, path.length > 0 ? currentStep  : currentStep + 1))) {
       const [x, y] = elem;
-      if (matrix[x][y] === 4 || matrix[x][y] === 3) continue;
-      changeMatrixValue(x, y, 1, true);
+      if (matrix[x][y] === cells.start.id || matrix[x][y] === cells.end.id) continue;
+      changeMatrixValue(x, y, cells.visited.id, true);
     }
+
+
 
     if (currentStep === visited.length - 1) {
       showFinalPath();
     } else {
       const [x, y] = currentVisited;
-      changeMatrixValue(x, y, 6, true);
+      changeMatrixValue(x, y, cells.current.id, true);
     }
   }, [currentStep]);
 
   const showFinalPath = () => {
     for (let elem of path) {
       const [x, y] = elem;
-      if (matrix[x][y] === 4 || matrix[x][y] === 3) continue;
-      changeMatrixValue(x, y, 2, true);
+      if (matrix[x][y] === cells.start.id || matrix[x][y] === cells.end.id) continue;
+      changeMatrixValue(x, y, cells.path.id, true);
     }
   };
 
@@ -135,7 +157,7 @@ const Visualizer = () => {
     const endingCells: [number, number][] = [];
     for (let i = 0; i < matrix.length; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
-        if (matrix[i][j] === 4) {
+        if (matrix[i][j] === cells.end.id) {
           endingCells.push([i, j]);
         }
       }
@@ -145,9 +167,10 @@ const Visualizer = () => {
 
   const setWalls = (walls: boolean[][]) => {
     setMatrix((prev) => {
-      const newMatrix = walls.map((row, i) => row.map((cell, j) => (cell ? 5 : prev[i][j] > 2 &&  prev[i][j] != 5 ? prev[i][j] : 0)));
-      newMatrix[0][0] = 3;
-      newMatrix[height - 1][width - 1] = 4;
+      const valuesToKeep = [cells.start.id, cells.end.id];
+      const newMatrix : number[][] = prev.map((row, i) => row.map((cell, j) => (walls[i][j] ? cells.wall.id : (valuesToKeep.includes(cell) ? cell : cells.empty.id))));
+      newMatrix[0][0] = cells.start.id;
+      newMatrix[height - 1][width - 1] = cells.end.id;
       return newMatrix;
     })
   }

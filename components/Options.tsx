@@ -27,13 +27,17 @@ const Options = memo(
     nextStep: () => void;
     previousStep: () => void;
   }) => {
-   
     return (
       <div className={styles.options}>
-       <AlgorithmSelector onAlgorithmChange={onAlgorithmChange} />
-        <MazeGenerator onGenerateMaze={onGenerateMaze} />
         <Brushes brush={brush} changeBrush={(e) => changeBrush(e)} />
-        <TimeOptions runAlgorithm={runAlgorithm} reset={reset} nextStep={nextStep} previousStep={previousStep} />
+        <AlgorithmSelector onAlgorithmChange={onAlgorithmChange} />
+        <TimeOptions
+          runAlgorithm={runAlgorithm}
+          reset={reset}
+          nextStep={nextStep}
+          previousStep={previousStep}
+        />
+        <MazeGenerator onGenerateMaze={onGenerateMaze} />
       </div>
     );
   }

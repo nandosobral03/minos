@@ -1,5 +1,5 @@
 import styles from "../styles/Visualizer.module.scss";
-
+import { cells } from "@/logic/cells";
 const VisualizerComponent = ({
   currentMatrix,
   changeCell,
@@ -9,15 +9,9 @@ const VisualizerComponent = ({
   changeCell: (x: number, y: number, value: number) => void;
   brush: number;
 }) => {
-  const clases = [
-    styles.empty,
-    styles.visited,
-    styles.path,
-    styles.start,
-    styles.end,
-    styles.wall,
-    styles.current
-  ];
+  
+
+
   return (
     <div
       className={styles.matrix}
@@ -29,7 +23,7 @@ const VisualizerComponent = ({
         return currentMatrix[rowIndex].map((col, colIndex) => {
           return (
             <div
-              className={`${styles.block} ${clases[col]}`}
+              className={`${styles.block} ${cells.findCellById(currentMatrix[rowIndex][colIndex]).class}`}
               key={rowIndex + "$" + colIndex}
               id={rowIndex + "$" + colIndex}
               onClick={() => changeCell(rowIndex, colIndex, brush)}
