@@ -16,9 +16,7 @@
         cursor: pointer;
         transition: all 0.2s ease-in-out;
         &:hover{
-            background-color: var(--primary) !important;
-            color: var(--background);
-            border:  0px solid var(--background);
+            background-color: var(--cell-hover) !important;
         }
     }
 }

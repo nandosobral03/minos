@@ -9,7 +9,7 @@ const AlgorithmSelector = ({
 }) => {
   useEffect(() => {
     const algorithms = require("@/logic/algorithms").default;
-    const algo = algorithms.find((algo: Algorithm) => algo.name === "dijkstra");
+    const algo = algorithms[0];
     onAlgorithmChange(algo);
   }, []);
 

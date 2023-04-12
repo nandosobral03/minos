@@ -17,6 +17,7 @@ const Options = memo(
     reset,
     nextStep,
     previousStep,
+    playing,
   }: {
     onAlgorithmChange: (algorithm: Algorithm | null) => void;
     onGenerateMaze: (preset: MazePreset) => void;
@@ -26,9 +27,10 @@ const Options = memo(
     reset: () => void;
     nextStep: () => void;
     previousStep: () => void;
+    playing: boolean;
   }) => {
     return (
-      <div className={styles.options}>
+      <div className={`${styles.options} ${playing ? styles.disabled : ""}`}>
         <Brushes brush={brush} changeBrush={(e) => changeBrush(e)} />
         <AlgorithmSelector onAlgorithmChange={onAlgorithmChange} />
         <TimeOptions
@@ -36,6 +38,7 @@ const Options = memo(
           reset={reset}
           nextStep={nextStep}
           previousStep={previousStep}
+          playing={playing}
         />
         <MazeGenerator onGenerateMaze={onGenerateMaze} />
       </div>

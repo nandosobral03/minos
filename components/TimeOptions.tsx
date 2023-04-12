@@ -11,6 +11,7 @@ const TimeOptions = ({
   reset: () => void;
   nextStep: () => void;
   previousStep: () => void;
+  playing: boolean;
 }) => {
 
 

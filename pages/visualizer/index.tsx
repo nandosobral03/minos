@@ -18,6 +18,7 @@ const Visualizer = () => {
   const [matrix, setMatrix] = useState<number[][]>(
     Array.from({ length: height }, () => Array.from({ length: width }, () => cells.empty.id)),
   );
+  const [found, setFound] = useState(false);
 
   useEffect(() => {
     const resize = () => {
@@ -43,8 +44,9 @@ const Visualizer = () => {
     const newMatrix = Array.from({ length: height }, () => Array.from({ length: width }, () => 0));
     newMatrix[0][0] = cells.start.id;
     newMatrix[height - 1][width - 1] = cells.end.id;
-    setMatrix(newMatrix);
+    setPath([]);
     setVisited([]);
+    setMatrix(newMatrix);
   }, [height, width]);
 
 
@@ -54,7 +56,17 @@ const Visualizer = () => {
 
 
 
-  const changeMatrixValue = (x: number, y: number, value: number, forceSync = false) => {
+  const changeMatrixValue = (x: number, y: number, value: number, forceSync = false, clearVisited = false) => {
+    
+
+    if(value == cells.start.id) {
+      const start = matrix.findIndex((row) => row.includes(cells.start.id));
+      const startCol = matrix[start]?.findIndex((cell) => cell === cells.start.id);
+      if(start != -1) {
+        matrix[start][startCol] = cells.empty.id;
+      }
+    }
+
     if (forceSync) {
       setMatrix((prev) => {
         prev[x][y] = value;
@@ -62,7 +74,7 @@ const Visualizer = () => {
       });
     } else {
       if(matrix[x][y] != value) {
-        const newMatrix = matrix.map((row) => row.map((cell) => (cell)));
+        const newMatrix = matrix.map((row) => row.map((cell) =>  (clearVisited && (cell == cells.visited.id || cell == cells.path.id)) ? cells.empty.id : cell));  
         newMatrix[x][y] = value;
         setMatrix(newMatrix);
       }
@@ -70,6 +82,7 @@ const Visualizer = () => {
   };
 
   const runAlgorithm = () => {
+    setPlaying(true);
     const startRow = matrix.findIndex((row) => row.includes(cells.start.id));
     const startCol = matrix[startRow].findIndex((cell) => cell === cells.start.id);
     const start: [number, number] = [startRow, startCol];
@@ -83,9 +96,10 @@ const Visualizer = () => {
       endings,
     );
     visited = visited.filter((elem, index) => elem[0] != startRow || elem[1] != startCol);
+    setFound(found);
     setVisited(v => {
       animateAlgorithm(visited).then(() => {
-        console.log("done");
+        setPlaying(false);
       });
       return visited;
     });
@@ -95,7 +109,7 @@ const Visualizer = () => {
 
 
   const animateAlgorithm = async (visited: [number, number][]) => {
-    for(let i = 0; i < visited.length; i++) {
+    for(let i = 0; i < visited.length + 1; i++) {
       await new Promise((resolve) => setTimeout(resolve, 35));
       _setCurrentStep(i);
     }
@@ -111,7 +125,7 @@ const Visualizer = () => {
   
   const setCurrentStep = (step: number) => {
     if (step == 0) _setCurrentStep(0);
-    if (step < 0 || step >= visited.length) return;
+    if (step < 0 || step > visited.length) return;
     console.log(step);
     _setCurrentStep(step);
   };
@@ -125,7 +139,6 @@ const Visualizer = () => {
     };
     
     const currentVisited = visited[currentStep];
-    if (!currentVisited) return;
     clearVisited();
 
 
@@ -137,12 +150,14 @@ const Visualizer = () => {
 
 
 
-    if (currentStep === visited.length - 1) {
+  if (currentStep === visited.length &&  found) {
       showFinalPath();
     } else {
+      if(!currentVisited) return;
       const [x, y] = currentVisited;
       changeMatrixValue(x, y, cells.current.id, true);
     }
+
   }, [currentStep]);
 
   const showFinalPath = () => {
@@ -183,20 +198,21 @@ const Visualizer = () => {
 
   return (
     <>
-      <Layout>
+      <Layout title="Visualizer">
         <Options
           onAlgorithmChange={setAlgorithm}
-          onGenerateMaze={(preset) => generateMaze(preset)}
+          onGenerateMaze={(preset) =>  playing ? () => {} : generateMaze(preset)}
           changeBrush={setBrush}
           brush={brush}
-          runAlgorithm={runAlgorithm}
-          reset={() => resetMatrix()}
-          nextStep={() => setCurrentStep(currentStep + 1)}
-          previousStep={() => setCurrentStep(currentStep - 1)}
+          runAlgorithm={ () => playing ? () => {} : runAlgorithm()}
+          reset={() => playing ? () => {} : resetMatrix()}
+          nextStep={() => playing ? () => {} : setCurrentStep(currentStep + 1)}
+          previousStep={() => playing ? () => {} : setCurrentStep(currentStep - 1)}
+          playing = {playing}
         />
         <VisualizerComponent
           currentMatrix={matrix}
-          changeCell={changeMatrixValue}
+          changeCell={(x, y, value) => playing ? () => {} : changeMatrixValue(x, y, value, false,true)}
           brush={brush}
         />
       </Layout>
