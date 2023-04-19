@@ -110,7 +110,7 @@ const Visualizer = () => {
 
   const animateAlgorithm = async (visited: [number, number][]) => {
     for(let i = 0; i < visited.length + 1; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 35));
+      await new Promise((resolve) => setTimeout(resolve, 25));
       _setCurrentStep(i);
     }
   };

@@ -1,0 +1,29 @@
+.cell{
+    min-height: 25px;
+    min-width: 25px;
+    max-height: 25px;
+    max-width: 25px;
+    border-radius: 2px;
+}
+
+.cellContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--cell-hover);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--primary);
+}
+
+
+.cellDescription{
+    display: flex;
+    gap: 16px;
+}
+
+.cellTitle{
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
