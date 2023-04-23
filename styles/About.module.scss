@@ -1,29 +1,116 @@
-.cell{
-    min-height: 25px;
-    min-width: 25px;
-    max-height: 25px;
-    max-width: 25px;
-    border-radius: 2px;
+.cell {
+  min-height: 25px;
+  min-width: 25px;
+  max-height: 25px;
+  max-width: 25px;
+  border-radius: 2px;
 }
 
-.cellContainer{
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--background-dark);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 var(--background-dark);
+}
+
+.cellDescription {
+  display: flex;
+  gap: 16px;
+}
+
+.cellTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+}
+
+.algorithmSelector {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-dark);
+  color: var(--text);
+  line-height: 1.5rem;
+  flex-grow: 1;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  padding: 1rem;
+  line-height: 1rem;
+  font-size: 1rem;
+  min-width: 200px;
+  width: 250px;
+  &:active {
+    outline: none;
+  }
+  height: 3.5rem;
+  option {
+    background-color: var(--cell);
+    color: var(--text);
+  }
+}
+.explanationCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--background-dark);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 var(--background-dark);
+
+  .explanationCardHeader {
     display: flex;
-    flex-direction: column;
     gap: 16px;
-    background-color: var(--cell-hover);
-    padding: 16px;
-    border-radius: 16px;
-    border: 1px solid var(--primary);
-}
+    justify-content: space-between;
+  }
 
-
-.cellDescription{
-    display: flex;
-    gap: 16px;
-}
-
-.cellTitle{
+  .explanationCardTitle {
     font-size: 24px;
     font-weight: 600;
     color: white;
+  }
+}
+
+.explanationSelector {
+  display: flex;
+  button {
+    background-color: var(--cell);
+    border: none;
+    height: 48px;
+    width: 48px;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background-color: var(--secondary);
+    }
+    &.active {
+      background-color: var(--secondary) !important;
+    }
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    &:last-child {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
 }

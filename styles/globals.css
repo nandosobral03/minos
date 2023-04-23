@@ -1,7 +1,11 @@
 :root {
 
-  --background:  #1db78e;
-  --background-light: #0f0f0f;
+  --background:  #81c2a5;
+  
+  
+  --background-light: #355548;
+  --background-dark: #28403a;
+
   
   --text: #f2f2f2;
   
@@ -27,6 +31,11 @@
   --path : #4f72d3;
   --current : #4fd3b0;
   --wall : #cd9b46;
+
+  --inactive-explanation: #53b1b330;
+  --active-explanation: #1db78e;
+  --no-explanation: #d5d5d52f;
+
 }
 
 * {

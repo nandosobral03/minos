@@ -1,6 +1,3 @@
-import Heap from "heap-js";
-
-
 const execution = (vals: boolean[][], start: [number, number], end: [number, number][]): {
     found: boolean,
     path: [number, number][]

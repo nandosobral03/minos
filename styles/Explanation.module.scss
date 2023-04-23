@@ -1,0 +1,78 @@
+.explanation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.explanationPopup {
+  position: absolute;
+  width: 300px;
+  height: 100%;
+  top: 0;
+  right: calc(-300px - 5%);
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.popUpText{
+  height: fit-content;
+  margin: auto;
+  width: 100%;
+  background-color: var(--primary);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.explanationText {
+  width: fit-content;
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000;
+  font-weight: 400;
+  white-space: pre-wrap;
+}
+
+
+
+
+
+
+.classContainer{
+  position: relative;
+  width: fit-content;
+  max-width: calc(100% - 350px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  *{
+    color: var(--text);
+  }
+  .explanationInactive{
+    background-color: var(--inactive-explanation);
+    cursor: pointer;
+
+  }
+  
+  .explanationActive{
+    background-color: var(--active-explanation);
+    cursor: pointer;
+  }
+  
+  .noExplanation{
+    background-color: var(--no-explanation);
+    cursor: default;
+  }
+
+  &:hover{
+    .explanationActive, .explanationInactive{
+      background-color: var(--primary);
+    }
+  }
+
+}
