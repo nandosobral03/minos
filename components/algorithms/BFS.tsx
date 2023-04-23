@@ -2,13 +2,13 @@ import { useState } from "react";
 import Explanation from "../Explanation";
 import NoExplanation from "../NoExplanation";
 import style from "../../styles/About.module.scss";
-const DFS = (props: any) => {
+const BFS = (props: any) => {
   const [activeExplanation, setActiveExplanation] = useState<
     undefined | number
   >(undefined);
   const segments: { text: string; explanation?: string }[] = [
     {
-      text: `const DFS = (vals: boolean[][], start: [number, number], end: [number, number][]): path: [number,number] => {`,
+      text: `const BFS = (vals: boolean[][], start: [number, number], end: [number, number][]): path: [number,number] => {`,
       explanation: `The funcion takes 3 arguments - the grid, the starting point, and the possible end points. It returns the path from the starting point to the closest end point if one exists.`,
     },
     {
@@ -17,15 +17,16 @@ const DFS = (props: any) => {
     },
     {
       text: `
-        const visited = new Set<string>();
-        const stack = [start];
-        `,
-      explanation: `We keep track of the visited points and the stack(LIFO) of points to visit .`,
+            const visited = new Set<string>();
+            const queue = [start];
+            const path = []
+            `,
+      explanation: `We keep track of the visited points and the queue(FIFO) of points to visit .`,
     },
     {
-      text: `
-        while (stack.length > 0) {
-            const node = stack.pop()!;
+        text: `
+        while (queue.length > 0) {
+            const node = queue.shift()!;
             const [x, y] = node;
             const key = \`\${x},\${y}\`;
 
@@ -34,39 +35,47 @@ const DFS = (props: any) => {
                 break;
             }
         `,
-      explanation: `We pop the point from the stack and check if it is an end point`,
+        explanation: `We shift the point from the queue and check if it is an end point, if it is we break out of the loop since it means we found a path`,
     },
     {
-      text: `
+        text: `
             if (vals[x][y] && !visited.has(key)) {
                 path.push(node)
                 visited.add(key);
         `,
-      explanation: `If the point is valid and has not been visited, we add it to the path and mark it as visited.`,
+        explanation: `If the point is valid and has not been visited, we add it to the path and mark it as visited.`,
     },
     {
-      text: ` if (x > 0) {
-            stack.push([x - 1, y]);
-        }
-        if (y > 0) {
-            stack.push([x, y - 1]);
-        }
-        if (x < vals.length - 1) {
-            stack.push([x + 1, y]);
-        }
-        if (y < vals[0].length - 1) {
-            stack.push([x, y + 1]);
-        }`,
-      explanation: `We add the adjacent points to the stack in the order of right, down, left, up.`,
+        text: 
+        `
+            if (x > 0) {
+                queue.push([x - 1, y]);
+            }
+            if (y > 0) {
+                queue.push([x, y - 1]);
+            }
+            if (x < vals.length - 1) {
+                queue.push([x + 1, y]);
+            }
+            if (y < vals[0].length - 1) {
+                queue.push([x, y + 1]);
+            }
+        `,
+        explanation: `We add the adjacent points to the queue if they are inside the grid`
     },
     {
-      text: `
+        text: `
+        }
     }
-    return path
-}`,
-      explanation: `We return the path.`,
-    },
-  ];
+    return  path
+}`
+        
+    }
+
+
+];
+
+ 
   return (
     <div className={style.explanationCard} style={{ gap: "2px" }}>
       {segments.map((segment, i) =>
@@ -89,4 +98,4 @@ const DFS = (props: any) => {
   );
 };
 
-export default DFS;
+export default BFS;
