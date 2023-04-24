@@ -8,7 +8,7 @@ const Explanation = (props: { lines: string[] }) => {
         {props.lines.map((line, i) => {
           return (
             <pre
-              className={`${style.explanationText} ${style.noExplanation}`}>
+              className={`${style.explanationText} ${style.noExplanation}`} key={i}>
               {line}
             </pre>
           );

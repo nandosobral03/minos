@@ -11,7 +11,7 @@ const AlgorithmSelector = ({
     const algorithms = require("@/logic/algorithms").default;
     const algo = algorithms[0];
     onAlgorithmChange(algo);
-  }, []);
+  }, [onAlgorithmChange]);
 
   const algorithms = require("@/logic/algorithms").default;
   const changeAlgorithm = (algorithm: string) => {

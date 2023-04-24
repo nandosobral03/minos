@@ -1,7 +1,7 @@
 import NavBar from "./NavBar";
 import style from "../styles/Layout.module.scss";
 import Head from "next/head";
-import { useState } from "react";
+import icon from "../public/favicon.png";
 const Layout = ({ children, title }: { children: React.ReactNode, title?:string }) => {
   
   
@@ -10,6 +10,8 @@ const Layout = ({ children, title }: { children: React.ReactNode, title?:string 
     <>
     <Head>
         <title>{ title || "Minos"}</title>
+        <link rel="icon" href={icon.src} />
+        
       </Head>
         <div className={style.layout} id="layout">
           <NavBar />

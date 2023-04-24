@@ -115,14 +115,6 @@ const Visualizer = () => {
     }
   };
 
-  useEffect(() => {
-    setCurrentStep(0);
-
-
-
-  }, [visited]);
-
-  
   const setCurrentStep = (step: number) => {
     if (step == 0) _setCurrentStep(0);
     if (step < 0 || step > visited.length) return;
@@ -131,7 +123,8 @@ const Visualizer = () => {
   };
 
 
-  useEffect(() => {
+  
+useEffect(() => {
     const clearVisited = () => {
       const valuesToKeep = [cells.start.id, cells.end.id, cells.wall.id];
       const newMatrix = matrix.map((row) => row.map((cell) => (valuesToKeep.includes(cell) ? cell : cells.empty.id)));
@@ -159,6 +152,7 @@ const Visualizer = () => {
     }
 
   }, [currentStep]);
+
 
   const showFinalPath = () => {
     for (let elem of path) {

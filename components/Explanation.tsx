@@ -14,6 +14,7 @@ const Explanation = (props: { explanation: string; lines: string[], active: bool
                   ? style.explanationActive
                   : style.explanationInactive
               }`}
+              key={i}
             >
               {line}
             </pre>

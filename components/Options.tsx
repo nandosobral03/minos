@@ -6,6 +6,7 @@ import { Algorithm } from "@/models/Algorithm.model";
 import { MazePreset } from "@/models/MazePreset.model";
 import AlgorithmSelector from "./AlgorithmSelector";
 import MazeGenerator from "./MazeGenerator";
+import { getDisplayName } from "next/dist/shared/lib/utils";
 
 const Options = memo(
   ({

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "../styles/NavBar.module.scss";
 import icon from "../public/icon.png";
+import Image from "next/image";
 const NavBar = () => {
   const router = useRouter();
   const currentRoute = router.asPath;
@@ -32,7 +33,7 @@ const NavBar = () => {
         ))}
       </div>
       <div className={styles.icon}>
-        <img src="/icon.png" alt="icon" />
+        <Image src={icon} alt="icon" width={100} height={100} />
       </div>
     </div>
   );

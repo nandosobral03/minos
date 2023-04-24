@@ -16,7 +16,7 @@ export default function Home() {
             target="_blank"
           >house</a>. Of course
           this is an impossibility, not only due to the wall-shifts but also the
-          film's constant destruction of continuity, frequent jump cuts
+          film&apos;s constant destruction of continuity, frequent jump cuts
           prohibiting any sort of accurate mapmaking. Consequently, in lieu of a
           schematic, the film offers instead a schismatic rendering of empty
           rooms, long hallways, and dead ends, perpetually promising but forever
@@ -48,14 +48,14 @@ export default function Home() {
             blood, Minos had a labyrinth constructed, complicated enough to keep
             his son from ever escaping but without bars to suggest a prison. (It
             is interesting to note how the myth states most of the Athenian
-            youth "fed" to the Minotaur actually starved to death in the
+            youth &quot;fed&quot; to the Minotaur actually starved to death in the
             labyrinth thus indicating their deaths had more to do with the
             complexity of the maze and less to do with the presumed fereeity of
             the Minotaur) At the heart of the labyrinth waits the Min[ ]taur and
             like the Minotaur of myth its name is [  ] Chiclitz treated the maze
             a s trope for psychic concealmente, its excavation resulting in
-            (tragic [] reconciliation But if in Chiclitz's eye the Minotaur
-            was a son imprisoned by a father's shame, is there thento Navidson's
+            (tragic [] reconciliation But if in Chiclitz&apos;s eye the Minotaur
+            was a son imprisoned by a father&apos;s shame, is there thento Navidson&apos;s
             eye an equivalent misprison of the [  ] in the depth of that place?
             And for that matter does there exist a chance to reconcile the not
             known with the desire for its antithesis? Navison is not Minos. He

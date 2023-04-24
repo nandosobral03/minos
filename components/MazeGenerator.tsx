@@ -20,7 +20,7 @@ const MazeGenerator = ({
 
   useEffect(() => {
     setMazePreset(presets[0].id);
-  }, []);
+  }, [presets]);
 
   return (
     <>
