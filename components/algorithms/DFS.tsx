@@ -18,8 +18,7 @@ const DFS = (props: any) => {
     {
       text: `
         const visited = new Set<string>();
-        const stack = [start];
-        `,
+        const stack = [start];`,
       explanation: `We keep track of the visited points and the stack(LIFO) of points to visit .`,
     },
     {
@@ -32,38 +31,38 @@ const DFS = (props: any) => {
             if (possibleEnds.includes(key)) {
                 path.push(node)
                 break;
-            }
-        `,
+            }`,
       explanation: `We pop the point from the stack and check if it is an end point`,
     },
     {
       text: `
             if (vals[x][y] && !visited.has(key)) {
                 path.push(node)
-                visited.add(key);
-        `,
+                visited.add(key);`,
       explanation: `If the point is valid and has not been visited, we add it to the path and mark it as visited.`,
     },
     {
-      text: ` if (x > 0) {
-            stack.push([x - 1, y]);
-        }
-        if (y > 0) {
-            stack.push([x, y - 1]);
-        }
-        if (x < vals.length - 1) {
-            stack.push([x + 1, y]);
-        }
-        if (y < vals[0].length - 1) {
-            stack.push([x, y + 1]);
-        }`,
+        text: `
+                if (x > 0) {
+                    stack.push([x - 1, y]);
+                }
+                if (y > 0) {
+                    stack.push([x, y - 1]);
+                }
+                if (x < vals.length - 1) {
+                    stack.push([x + 1, y]);
+                }
+                if (y < vals[0].length - 1) {
+                    stack.push([x, y + 1]);
+                }
+          }`,
       explanation: `We add the adjacent points to the stack in the order of right, down, left, up.`,
     },
     {
       text: `
-    }
-    return path
-}`,
+      }
+      return path
+  }`,
       explanation: `We return the path.`,
     },
   ];

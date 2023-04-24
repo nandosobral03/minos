@@ -12,60 +12,57 @@ const BFS = (props: any) => {
       explanation: `The funcion takes 3 arguments - the grid, the starting point, and the possible end points. It returns the path from the starting point to the closest end point if one exists.`,
     },
     {
-      text: `    const possibleEnds = end.map(([x, y]) => \`\${x},\${y}\`);`,
+      text: `
+      const possibleEnds = end.map(([x, y]) => \`\${x},\${y}\`);`,
       explanation: `We convert the end points to a string so we can easily check if the current point is an end point.`,
     },
     {
       text: `
-            const visited = new Set<string>();
-            const queue = [start];
-            const path = []
-            `,
+      const visited = new Set<string>();
+      const queue = [start];
+      const path = []`,
       explanation: `We keep track of the visited points and the queue(FIFO) of points to visit .`,
     },
     {
         text: `
-        while (queue.length > 0) {
-            const node = queue.shift()!;
-            const [x, y] = node;
-            const key = \`\${x},\${y}\`;
+      while (queue.length > 0) {
+          const node = queue.shift()!;
+          const [x, y] = node;
+          const key = \`\${x},\${y}\`;
 
-            if (possibleEnds.includes(key)) {
-                path.push(node)
-                break;
-            }
-        `,
+          if (possibleEnds.includes(key)) {
+              path.push(node)
+              break;
+          }`,
         explanation: `We shift the point from the queue and check if it is an end point, if it is we break out of the loop since it means we found a path`,
     },
     {
         text: `
-            if (vals[x][y] && !visited.has(key)) {
-                path.push(node)
-                visited.add(key);
-        `,
+          if (vals[x][y] && !visited.has(key)) {
+              path.push(node)
+              visited.add(key);`,
         explanation: `If the point is valid and has not been visited, we add it to the path and mark it as visited.`,
     },
     {
         text: 
         `
-            if (x > 0) {
-                queue.push([x - 1, y]);
-            }
-            if (y > 0) {
-                queue.push([x, y - 1]);
-            }
-            if (x < vals.length - 1) {
-                queue.push([x + 1, y]);
-            }
-            if (y < vals[0].length - 1) {
-                queue.push([x, y + 1]);
-            }
-        `,
+                if (x > 0) {
+                    queue.push([x - 1, y]);
+                }
+                if (y > 0) {
+                    queue.push([x, y - 1]);
+                }
+                if (x < vals.length - 1) {
+                    queue.push([x + 1, y]);
+                }
+                if (y < vals[0].length - 1) {
+                    queue.push([x, y + 1]);
+                }`,
         explanation: `We add the adjacent points to the queue if they are inside the grid`
     },
     {
         text: `
-        }
+           }
     }
     return  path
 }`

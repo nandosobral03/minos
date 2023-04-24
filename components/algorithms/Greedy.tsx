@@ -75,7 +75,7 @@ const Greddy = (props: any) => {
 }`,
     },
     {
-      text: `function manhattanDistance(a: [number, number], b: [number, number][]): number {
+      text: `const manhattanDistance = (a: [number, number], b: [number, number][]): number => {
     let min = Infinity;
     for (let i = 0; i < b.length; i++) {
         const [x, y] = b[i];
